@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  training_service:
+    image: nia
+    build:
+      context: .
+      dockerfile: Dockerfile
+    runtime: nvidia
+    volumes:
+      - .:/app
+      - ../NIA-2024_data:/app/train_data
+      
+    command: tail -f /dev/null

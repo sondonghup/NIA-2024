@@ -14,7 +14,6 @@ class Classifier(nn.Module):
                  bnb_4bit_use_double_quant,
                  r,
                  lora_alpha,
-                 target_modules,
                  lora_dropout,
                  bias,
                  ):
@@ -34,7 +33,7 @@ class Classifier(nn.Module):
         lora_config = LoraConfig(
             r = r,
             lora_alpha = lora_alpha,
-            target_modules = target_modules,
+            target_modules = ['q_proj', 'v_proj'],
             lora_dropout = lora_dropout,
             bias = bias
         )

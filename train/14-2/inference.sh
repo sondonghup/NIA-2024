@@ -7,7 +7,7 @@ python3 inference.py \
     --device \
     --test_data_path \
     --token \
-    --num_features \
+    --num_feature \
     --batch_size \
     --result_name \
     --log_name

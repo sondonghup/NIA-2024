@@ -2,7 +2,6 @@ import argparse
 import logging
 import torch
 import os
-import wandb
 import torch.nn as nn
 import bitsandbytes as bnb
 
@@ -36,7 +35,6 @@ if __name__ == "__main__":
     parser.add_argument('--bnb_4bit_use_double_quant', dest = 'bnb_4bit_use_double_quant', type = bool)
     parser.add_argument('--lora_rank', dest = 'lora_rank', type = int)
     parser.add_argument('--lora_alpha', dest = 'lora_alpha', type = int)
-    parser.add_argument('--target_modules', dest = 'target_modules', type = list)
     parser.add_argument('--lora_dropout', dest = 'lora_dropout', type = float)
     parser.add_argument('--bias', dest = 'bias', type = str)
     args = parser.parse_args()
@@ -66,20 +64,18 @@ if __name__ == "__main__":
                                   shuffle = False,)
 
     model = Classifier(model_name = args.model_name,
-                       token = args.hf_token
+                       token = args.hf_token,
                        load_in_4bit = args.load_in_4bit,
                        bnb_4bit_quant_type = args.bnb_4bit_quant_type,
                        bnb_4bit_use_double_quant = args.bnb_4bit_use_double_quant,
                        r = args.lora_rank,
                        lora_alpha = args.lora_alpha,
-                       target_modules = args.target_modules,
                        lora_dropout = args.lora_dropout,
                        bias = args.bias
                        )
 
     model = model.to(device)
 
-    wandb.init(project='final')
     save_dir = args.save_path
 
     optimizer = AdamW(model.parameters(), lr = args.learning_rate)

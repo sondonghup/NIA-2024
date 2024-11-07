@@ -2,7 +2,6 @@ import argparse
 import logging
 import torch
 import os
-import wandb
 import torch.nn as nn
 import bitsandbytes as bnb
 
@@ -80,7 +79,6 @@ if __name__ == "__main__":
 
     model = model.to(device)
 
-    wandb.init(project='14-2')
     save_dir = args.save_path
 
     optimizer = AdamW(model.parameters(), lr = args.learning_rate)

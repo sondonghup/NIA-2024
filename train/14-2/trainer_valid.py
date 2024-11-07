@@ -1,6 +1,5 @@
 import numpy as np
 import logging
-import wandb
 import torch
 import os
 
@@ -52,12 +51,10 @@ def valid_epoch(model,
         
         loss = np.mean(losses)
         logging.info(f" Average valid loss : {loss:.4f}")
-        wandb.log({"valid_loss": float(loss)})
 
         for k in [1, 2, 3]:
             top_k_acc = top_k_score(conv_labels, conv_preds, k)
             logging.info(f' Top-{k} f1-score: {top_k_acc:.4f}')
-            wandb.log({f"valid_top_{k}_f1-score": float(top_k_acc)})
 
         if compare_valid_loss > loss:
 

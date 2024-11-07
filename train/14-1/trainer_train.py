@@ -1,6 +1,5 @@
 import numpy as np
 import logging
-import wandb
 import torch
 
 from tqdm import tqdm
@@ -57,12 +56,10 @@ def train_epoch(model,
 
     loss = np.mean(losses)
     logging.info(f" Average train loss : {loss:.4f}")
-    wandb.log({"train_loss": float(loss)})
 
     for k in [1, 2, 3]:
         top_k_acc = top_k_score(conv_labels, conv_preds, k)
-        logging.info(f" Top-{k} f1-score : {top_k_acc:.4f}") 
-        wandb.log({f"train_top_{k}_f1-score": float(top_k_acc)})
+        logging.info(f" Top-{k} f1-score : {top_k_acc:.4f}")
 
     logging.info(f"train 종료 gpu 사용량 : {torch.cuda.memory_allocated() / 1024 /1024}")
 

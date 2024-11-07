@@ -89,7 +89,7 @@ if __name__ == "__main__":
     parser.add_argument('--device', dest = 'device', type = str)
     parser.add_argument('--test_data_path', dest = 'test_data_path', type = str)
     parser.add_argument('--token', dest = 'token', type = str)
-    parser.add_argument('--num_features', dest = 'num_features', type = int)
+    parser.add_argument('--num_feature', dest = 'num_feature', type = int)
     parser.add_argument('--batch_size', dest = 'batch_size', type = int)
     parser.add_argument('--result_name', dest = 'result_name', type = str)
     parser.add_argument('--log_name', dest = 'log_name', type = str)
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     test_file_list = get_file_list(args.test_data_path)
     model = load_model(args.base_model_name, args.trained_model_path, args.device, token = args.token)
     
-    test_data = make_dataset(test_file_list, tokenizer, args.num_features)
+    test_data = make_dataset(test_file_list, tokenizer, args.num_feature)
     test_dataloader = DataLoader(test_data,
                                   batch_size = args.batch_size,
                                   shuffle = False,)
